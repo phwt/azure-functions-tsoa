@@ -8,7 +8,8 @@
       "methods": [
         "get",
         "post"
-      ]
+      ],
+      "route": "users"
     },
     {
       "type": "http",
@@ -16,5 +17,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/HttpTrigger/index.js"
+  "scriptFile": "../dist/Users/index.js"
 }

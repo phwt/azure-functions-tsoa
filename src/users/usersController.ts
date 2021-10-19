@@ -13,6 +13,11 @@ import { UsersService, UserCreationParams } from "./usersService";
 
 @Route("users")
 export class UsersController extends Controller {
+  @Get()
+  public async listUsers(): Promise<User[]> {
+    return new UsersService().list();
+  }
+
   @Get("{userId}")
   public async getUser(
     @Path() userId: number,
