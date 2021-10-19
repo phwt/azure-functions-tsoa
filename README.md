@@ -10,6 +10,15 @@ npm start # start Azure Functons emulator for local development
 npm run generate-spec # generate OpenAPI specs in JSON format
 ```
 
+Example Routes:
+- `/api/users`
+  - `GET`: list all users
+  - `POST`: create new user
+- `/api/users/{userId:int}`
+  - `GET`: get a user
+  - `PUT`: update a user
+  - `DELETE`: delete a user
+
 ## Motivation
 
 I don't want to write OpenAPI specs for each function by hand, and I want to deploy it with Azure Functions. [tsoa](https://github.com/lukeautry/tsoa) can do that for me, but it will require some tinkering for it to work with Azure Functions.
