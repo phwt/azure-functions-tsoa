@@ -6,22 +6,23 @@ const httpTrigger: AzureFunction = async function (
   req: HttpRequest
 ): Promise<void> {
   const usersController = new UsersController();
+  let contextResponse;
 
   switch (req.method) {
     case "GET":
       const response = await usersController.listUsers();
-
-      context.res = {
-        status: usersController.getStatus(),
-        body: response,
-      };
+      contextResponse = { body: response };
       break;
     case "POST":
-      break;
-    default:
-      // Method not allowed
+      await usersController.createUser(req.body);
       break;
   }
+
+  context.res = {
+    status: usersController.getStatus(),
+    headers: usersController.getHeaders(),
+    ...contextResponse,
+  };
 };
 
 export default httpTrigger;
