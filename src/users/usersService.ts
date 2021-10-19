@@ -25,14 +25,10 @@ export class UsersService {
     return users;
   }
 
-  public get(id: number, name?: string): User {
-    return {
-      id,
-      email: "jane@doe.com",
-      name: name ?? "Jane Doe",
-      status: "Happy",
-      phoneNumbers: [],
-    };
+  public get(id: number): User {
+    const user = users.find((user) => user.id === id);
+    if (user) return user;
+    throw new Error("User not found!");
   }
 
   public create(userCreationParams: UserCreationParams): User {
@@ -41,5 +37,15 @@ export class UsersService {
       status: "Happy",
       ...userCreationParams,
     };
+  }
+
+  public update(id: number, userUpdateParams: UserCreationParams): User {
+    const user = users.find((user) => user.id === id);
+    if (user) return { ...user, ...userUpdateParams };
+    throw new Error("User not found!");
+  }
+
+  public delete(id: number): User {
+    return this.get(id);
   }
 }

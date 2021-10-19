@@ -5,15 +5,23 @@ const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
+  const userId = context.bindingData.userId;
   const usersController = new UsersController();
   let contextResponse;
 
   switch (req.method) {
     case "GET":
-      contextResponse = { body: await usersController.listUsers() };
+      contextResponse = {
+        body: await usersController.getUser(userId),
+      };
       break;
-    case "POST":
-      contextResponse = { body: await usersController.createUser(req.body) };
+    case "PUT":
+      contextResponse = {
+        body: await usersController.updateUser(userId, req.body),
+      };
+      break;
+    case "DELETE":
+      contextResponse = { body: await usersController.deleteUser(userId) };
       break;
   }
 
